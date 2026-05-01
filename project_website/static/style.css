@@ -1,0 +1,162 @@
+/* Apply to entire page */
+body {
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    background-color: #2e3b2c; /* forest green background */
+    color: #f5f5f5; /* light text */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 80px;
+}
+
+/* Titles */
+h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+.container0 { /* toggle sensor box*/
+  position: fixed; /* Stays in the corner while scrolling */
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  
+  /* Layout inside the div */
+  display: flex;
+  align-items: center; /* Centers text and box vertically */
+  gap: 8px;            /* Adds space between text and box */
+  
+  /* Optional: Styling the "box" area */
+  background:  #6b4f2a;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-family: sans-serif;
+}
+
+.container0 input, 
+.container0 [type="checkbox"] {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+/* Text box */
+input {
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+
+    border-radius: 8px;
+    border: none;
+
+    margin-right: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+
+    background-color: #6b4f2a; /* wood brown */
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+
+    margin-bottom: 5px;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #8a6435;
+}
+
+/* Answer text */
+#answer {
+    margin-top: 15px;
+    font-size: 20px;
+    max-width: 600px;
+    text-align: center;
+}
+
+.answerContainer {
+    background-color: #0e3604;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.container1 {
+    background-color: #3c4a36;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+    margin-bottom: 20px;
+}
+
+.container2 {
+    background-color: #0e3604;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+form {
+    text-align: left;
+}
+
+.billy-image {
+    width: 100px;
+    height: 50px;
+    margin-bottom: -60px;
+}
+
+.secretContainer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 90px;
+
+    /* Layout inside the div */
+    display: flex;
+    align-items: center; /* Centers text and box vertically */
+}
+
+.secretButton {
+    padding: 10px 20px;
+    font-size: 12px;
+    text-align: center;
+
+    background-color: #c61613; 
+    color: white;
+
+    width: 100px;
+    height: 100px;
+
+    border: none;
+    border-radius: 80px;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease;
+
+    margin-bottom: 5px;
+
+    transform: scale(0.5);
+}
+
+.secretButton:hover {
+    background-color: #cd423f;
+}
