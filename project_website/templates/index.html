@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Big Bot Billy Bass</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!--includes library for photon communication (I think)-->
+    <script>
+        // global variables
+        var deviceID = "0a10aced202194944a057d6c"; //from particle cloud list in CLI
+        var accessToken = "8915af1e0f9768fed3d60a893b281d17f7875759"; //got from particle token create in CLI. Can use --never-expires tag also
+        var baseURL = "https://api.particle.io/v1/devices/"
+    </script>
+
+    <div class="container0">
+        <label for="toggle"><b>Toggle Sensors</b></label> <br>
+        <input type="checkbox" id="toggle" name="sensor">
+    </div>
+
+    <script>
+        $("#toggle").click(function(event) { 
+                var functionName = "cF_Toggle_Sensor"
+
+                var isChecked = $(this).is(":checked"); 
+                var sensorState = isChecked ? "HIGH" : "LOW"; //checks if the scheckbox is checked or not
+
+                $.ajax({
+                    url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
+                    method: "POST",
+                    headers: { "Authorization": "Bearer " + accessToken },
+                    data: { arg: sensorState }
+                });
+            });
+    </script>
+
+    <h1>Big Bot Billy Bass</h1>
+    
+    <img id = "billyFish" src="{{ url_for('static', filename='billy_bass_closed.png') }}" class="/static/billy-image" class="billy-image">
+
+    <div class = "container1">
+        <h2>Ask Billy Something</h2>
+
+        <input id = "question" type = "text" placeholder = "Ask Billy Something">
+        <button onclick = "askBilly()">Ask</button>
+
+        <h2>Billy says:</h2>
+        <div class="answerContainer">
+            <p id = "answer"></p>
+        </div>
+
+        <button onclick = "playBilly()">▶ Play Billy</button>
+
+        <audio id = "billyAudio">
+            <source id = "audioSource" src = "/static/response.mp3" type = "audio/mpeg">
+        </audio>
+
+        <button onclick = "resetBilly()"><b>⭮</b> Reset Billy</button> <br><br>
+
+        <div class = "container2">
+            <button onclick = "Be_Happy()" id="Happy">Don't Worry, Be Happy</button> 
+
+            <audio id = "Be_Happy">
+                <source id = "song1" src = "/static/Billy_songs/Dont_Worry_Be_Happy.mp3" type = "audio/mpeg">
+            </audio>
+            
+            <br>
+
+            <button onclick = "To_The_River()" id="River">Take me to the River</button>
+
+            <audio id = "To_The_River">
+                <source id = "song2" src = "/static/Billy_songs/TAKE_ME_TO_THE_RIVER.mp3" type = "audio/mpeg">
+            </audio>
+        </div>
+
+        <script>
+            async function Be_Happy() {
+                let audio = document.getElementById("Be_Happy");
+
+                audio.play(); //for if the fish is not connected
+            }
+
+            $("#Happy").click(function(event) { //the id of the element goes in the "#___"!
+                event.preventDefault();
+                var functionName = "cF_Be_Happy"
+                $.ajax({
+                    url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
+                    method: "POST",
+                    headers: { "Authorization": "Bearer " + accessToken },
+                    data: { arg: "HIGH" }
+
+                });
+            });
+
+            async function To_The_River() {
+                let audio = document.getElementById("To_The_River");
+
+                audio.play(); //for if the fish is not connected
+            }
+
+            $("#River").click(function(event) { //the id of the element goes in the "#___"!
+                event.preventDefault();
+                var functionName = "cF_To_The_River"
+                $.ajax({
+                    url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
+                    method: "POST",
+                    headers: { "Authorization": "Bearer " + accessToken },
+                    data: { arg: "HIGH" }
+
+                });
+            });
+        </script>
+
+        <!-- got all of this from chaptgpt -->
+        <script> 
+            async function resetBilly() {
+                await fetch("/reset");
+
+                document.getElementById("answer").innerText = "Billy forgot everything.";
+            }
+
+            async function askBilly() {
+
+            let question = document.getElementById("question").value;
+
+            document.getElementById("question").value = "";
+
+            //show thinking message:
+            document.getElementById("answer").innerText = "Billy is thinking...";
+
+            //sends question to the server
+            let response = await fetch("/ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({question: question})
+            });
+
+            //wait for the response from the server
+            let data = await response.json();
+
+            //update the text on the webpage
+            document.getElementById("answer").innerText = data.answer;
+
+            // let audioPlayer = document.getElementById("audioPlayer");
+
+            //load audio for webpage
+            let audioSource = document.getElementById("audioSource");
+            audioSource.src = "/static/response.mp3?" + new Date().getTime();
+
+            //replaces: document.getElementById("billyAudio").load();
+            let audio = document.getElementById("billyAudio");
+            audio.load();
+
+            playBilly();
+        }
+
+        function playBilly() {
+            let audio = document.getElementById("billyAudio");
+            let fish = document.getElementById("billyFish");
+
+            audio.play(); //for if the fish is not connected
+
+            //calls Particle.function(), and plays on the fish
+            var functionName = "cF_Billy_Audio"
+            $.ajax({
+                url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
+                method: "POST",
+                headers: { "Authorization": "Bearer " + accessToken },
+                data: { arg: "HIGH" }
+            });
+
+            let mouthOpen = false;
+
+            let talking = setInterval(function () { //shows Billy talking on the website
+                if (mouthOpen) {
+                    fish.src = "{{ url_for('static', filename='billy_bass_open.png') }}";
+                }
+                else {
+                    fish.src = "{{ url_for('static', filename='billy_bass_closed.png') }}";
+                }
+
+                mouthOpen = !mouthOpen;
+
+            }, 150); //speed of mouth movement
+
+            audio.onended = function() {
+                clearInterval(talking);
+                fish.src = "/static/billy_bass_closed.png";
+            };
+        }
+
+        document.getElementById("question").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                askBilly();
+            }
+        });
+
+        </script>
+
+    </div>
+
+    <div class="secretContainer">
+        <button class="secretButton" onclick="Rick_Roll()" id="Rick_Roll">
+            <b>DO NOT PRESS!</b>
+        </button>
+    </div>
+
+    <script>
+        async function Rick_Roll() {
+            window.open("https://www.youtube.com/watch?v=cvh0nX08nRw", "_blank"); //sends user to different page in new tab
+        }
+
+        $("#Rick_Roll").click(function(event) { 
+            event.preventDefault();
+            var functionName = "cF_Rick_Roll"
+            $.ajax({
+                url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
+                method: "POST",
+                headers: { "Authorization": "Bearer " + accessToken },
+                data: { arg: "ROLL" }
+            });
+        });
+    </script>
+    
+</body>
+
+</html>
