@@ -1,3 +1,6 @@
+##DISCLAIMER - I do not know Python, so almost all of this code is generated with AI with MY ideas and input. 
+#This is a part of webpage development, however, so this is allowed.
+
 from flask import Flask, request, render_template, jsonify, send_file, Response
 from openai import OpenAI
 from datetime import datetime
@@ -6,11 +9,11 @@ import json
 import os
 import requests
 
-app = Flask(__name__)
-client = OpenAI(api_key = "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") 
+app = Flask(__name__) #starts Flask, which runs the server and the AI in it
+client = OpenAI(api_key = "YOUR_OPENAI_API_KEY") #gets the OpenAI API
 
 #Enter Billy Personality
-with open("billy_prompt.txt") as f:
+with open("billy_prompt.txt") as f: #gives the AI a custom personality through this prompt
     system_prompt = f.read()
 
 #Enable conversation history
@@ -24,7 +27,7 @@ else:
 ##Homepage
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html") #imports the html webpage
 
 #Ask Billy
 @app.route("/ask", methods = ["POST"])
@@ -41,24 +44,18 @@ def ask():
         "content": question
     })
 
-    ##memory limit - UNNECESSARY, but could be useful
-    # if len(conversation) > 20:
-    #     conversation.pop(1)
-    
     if "weather" in question.lower():
 
-        answer = get_weather()
+        answer = get_weather() #if user's question has the word "weather" in it, it responds by getting the weather
 
     elif "time" in question.lower():
 
-        answer = get_time()
+        answer = get_time() #if user's question has the word "time" in it, it responds by getting the current time
 
     else:
         response = client.responses.create(
-            model = "gpt-4.1-nano",
+            model = "gpt-4.1-nano", #AI model used in Billy
             input = conversation
-            # input = [{"role": "system", "content": system_prompt}, 
-            #          {"role": "user", "content": question}]
         )
 
         answer = response.output_text
@@ -72,10 +69,6 @@ def ask():
     with open("conversation.json", "w") as f:
         json.dump(conversation, f)
 
-    #save text response to txt file - UNNECESSARY
-    with open("static/response.txt", "w") as file:
-        file.write(answer)
-
     #text to speech as mp3
     speech_mp3 = client.audio.speech.create(
         model = "gpt-4o-mini-tts",
@@ -83,20 +76,9 @@ def ask():
         input = answer
     )
 
-    with open("static/response.mp3", "wb") as f:
+    with open("static/response.mp3", "wb") as f: #creates response.mp3 file for Billy to output
         f.write(speech_mp3.content)
-
-    #text to speech as wav - UNNECESSARY
-    speech_wav = client.audio.speech.create(
-        model = "gpt-4o-mini-tts",
-        voice = "ash",  
-        input = answer
-    )
-
-    with open("static/response.wav", "wb") as f: # "wb" means write binary
-        f.write(speech_wav.content)
         
-
     return jsonify({"answer": answer})
 
 ##Add reset button for Billy's memory
@@ -112,7 +94,7 @@ def reset():
     return "Billy forgot everything."
 
 ##Add weather feature using OpenWeather
-OPENWEATHER_API_KEY = "c4992bc89c4c807a4fcbfdc0e1549849"
+OPENWEATHER_API_KEY = "YOUR_OPENWEATHER_API_KEY" #can add openWeather if you want to access the weather
 
 @app.route("/weather") 
 def get_weather():
