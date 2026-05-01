@@ -1,5 +1,5 @@
 # Big-Bot-Billy-Bass
- - Solo Porject by: Kiefer Dick
+Solo Porject by: Kiefer Dick
 
 ## Description
 This project involves taking apart the classic Big Mouth Billy Bass toy from the 1990's and integrating the Particle Photon and a custom AI chatbot.
