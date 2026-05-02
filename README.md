@@ -30,11 +30,10 @@ the webpage, Billy comes alive and talks back with his own unique response to ev
  - style.css - CSS code to customize the Billy interface
  - server.py - Custom Python Server that runs locally to hold the OpenAI model used for Billy
 
-<img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/dfa73b58-66d4-44c0-8239-6322df1a4947" />
-
-
 ## Hardware Components
  - Particle Photon 2
  - Adafruit VS1053 MP3 Decoder Module
  - 2 Polulu DRV8835 Dual Motor Drivers
  - LM386N-1 Operational Amplifier IC
+
+<img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/dfa73b58-66d4-44c0-8239-6322df1a4947" />
