@@ -27,7 +27,7 @@ the webpage, Billy comes alive and talks back with his own unique response to ev
 ## Project Files
  - final_product.cpp - cummulative code that is flashed to the Photon
  - billyMovement.h - custom header file that declares Billy class as well as movement functions
- - billyMovement.cpp - defines all class Billy functions
+ - billyMovement.cpp - defines all Billy class functions
  - index.html - contains source code for the HTML project website
  - style.css - CSS code to customize the Billy interface
  - server.py - Custom Python Server that runs locally to hold the OpenAI model used for Billy
