@@ -1,5 +1,7 @@
 # Big-Bot-Billy-Bass
-Solo Porject by: Kiefer Dick
+Solo Project by: Kiefer Dick
+
+<img width="4032" height="3024" alt="showcase" src="https://github.com/user-attachments/assets/6a72cc62-f7fb-4d47-99f8-487fe3a229a4" />
 
 ## Description
 This project involves taking apart the classic Big Mouth Billy Bass toy from the 1990's and integrating the Particle Photon and a custom AI chatbot.
@@ -36,4 +38,4 @@ the webpage, Billy comes alive and talks back with his own unique response to ev
  - 2 Polulu DRV8835 Dual Motor Drivers
  - LM386N-1 Operational Amplifier IC
 
-<img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/dfa73b58-66d4-44c0-8239-6322df1a4947" />
+<img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/b307e0c8-bce1-4c62-a58c-60635386b946" />
