@@ -1,8 +1,8 @@
 #include "Particle.h"
 #include "SPI.h" //For SPI communication protocal
 #include "billyMovement.h" //custom header file for Billy's functions and animations!
-#include "C:\Big_Bot_Billy_Bass\final_product\lib\Adafruit_VS1053\src\Adafruit_VS1053.h" //Adafruit_VS1053.h
-#include "C:\Big_Bot_Billy_Bass\final_product\lib\SdFat\src\SdFat.h" //SdFat.h
+#include "Adafruit_VS1053.h" //Adafruit_VS1053.h
+#include "SdFat.h" //SdFat.h
 
 //variables for Billy sensors ON the Billy Bass toy!
 int billySensor = A1;
