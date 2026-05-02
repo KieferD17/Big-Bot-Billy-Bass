@@ -38,4 +38,4 @@ the webpage, Billy comes alive and talks back with his own unique response to ev
  - 2 Polulu DRV8835 Dual Motor Drivers
  - LM386N-1 Operational Amplifier IC
 
-<img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/b307e0c8-bce1-4c62-a58c-60635386b946" />
+<img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/7aefbd39-dd3a-4a3b-aeff-20426e955252" />
