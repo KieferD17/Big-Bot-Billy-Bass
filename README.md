@@ -35,10 +35,13 @@ the webpage, Billy comes alive and talks back with his own unique response to ev
 ## Hardware Components
  - Particle Photon 2
  - Adafruit VS1053 MP3 Decoder Module
+ - 16 GB Micro SD card
  - 2 Polulu DRV8835 Dual Motor Drivers
  - LM386N-1 Operational Amplifier IC
 
 <img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/7aefbd39-dd3a-4a3b-aeff-20426e955252" /> 
+
+
 
 <img width="820" height="809" alt="hand_circuit_diagram" src="https://github.com/user-attachments/assets/ad0e9a17-bd68-47cc-97b7-979f21b5949e" />
 
