@@ -46,6 +46,8 @@ Adafruit_VS1053_FilePlayer Billy_VS1053 = Adafruit_VS1053_FilePlayer(
 Billy Bass; //creates custom Billy Bass object
 
 TCPClient client; //object to be able to get/stream data from website!
+String host = "host_IP_address"; //IP address of the computer hosting the server to stream data from
+int port = 0; //the port number of the server to stream data from
 
 uint8_t buffer[256]; //creates buffer of 256 bytes of data to be able to stream data to the VS1053 cleanly
 
@@ -59,7 +61,7 @@ int toggleSensor(String command); //ability to toggle the sensor readings from t
 void streamResponse() { 
   //Connecting to the local server
   Serial.println("Conecting to server...");
-  if (!client.connect("172.20.10.2", 5000)) { //attempts to connect to the server on computer's IP address and port 
+  if (!client.connect(host, port)) { //attempts to connect to the server on computer's IP address and port 
     Serial.println("Connection failed!"); 
     return;
   }
@@ -67,7 +69,7 @@ void streamResponse() {
 
   //sending the request to the server
   client.println("GET /static/response.mp3 HTTP/1.1"); //sending GET request for this specific path  
-  client.println("Host: 172.20.10.2:5000"); //tells the host server (my computer IP)
+  client.println("Host: " + host + ":" + String(port)); //tells the host server 
   client.println("Connection: close"); 
   client.println(); //tells the server we are done sending the request
   Serial.println("Request sent"); //debugging print statement
