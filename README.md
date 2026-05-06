@@ -1,6 +1,6 @@
 # Big-Bot-Billy-Bass
-Solo Project by: Kiefer Dick <br>
-[GitHub link](https://github.com/KieferD17/Big-Bot-Billy-Bass/tree/main) 
+Solo Project by: Kiefer Dick - 
+[Project GitHub](https://github.com/KieferD17/Big-Bot-Billy-Bass/tree/main) 
 
 <img width="4032" height="3024" alt="showcase" src="https://github.com/user-attachments/assets/6a72cc62-f7fb-4d47-99f8-487fe3a229a4" />
 
