@@ -41,5 +41,6 @@ the webpage, Billy comes alive and talks back with his own unique response to ev
 
 <!-- <img width="3000" height="3631" alt="circuit_diagram" src="https://github.com/user-attachments/assets/7aefbd39-dd3a-4a3b-aeff-20426e955252" />  -->
 
-<img width="1640" height="1901" alt="image" src="https://github.com/user-attachments/assets/3cbff0b3-7d62-4235-879a-4af6f7372506" />
+<img width="1621" height="962" alt="circuit_diagram" src="https://github.com/user-attachments/assets/f71aec26-0fe0-4be9-8426-014eb7188b6d" />
+
 
