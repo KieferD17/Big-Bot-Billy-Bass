@@ -9,36 +9,10 @@
 <body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!--includes library for photon communication (I think)-->
     <script>
-        // global variables
-        var deviceID = "0a10aced202194944a057d6c"; //from particle cloud list in CLI
-        var accessToken = "8915af1e0f9768fed3d60a893b281d17f7875759"; //got from particle token create in CLI. Can use --never-expires tag also
-        var baseURL = "https://api.particle.io/v1/devices/";
-
         const ESP_IP = "http://192.168.0.105"; //global variable for the ESP32 IP
     </script>
 
-    <div class="container0">
-        <label for="toggle"><b>Toggle Sensors</b></label> <br>
-        <input type="checkbox" id="toggle" name="sensor">
-    </div>
-
-    <script>
-        $("#toggle").click(function(event) { 
-                var functionName = "cF_Toggle_Sensor"
-
-                var isChecked = $(this).is(":checked"); 
-                var sensorState = isChecked ? "HIGH" : "LOW"; //checks if the scheckbox is checked or not
-
-                $.ajax({
-                    url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
-                    method: "POST",
-                    headers: { "Authorization": "Bearer " + accessToken },
-                    data: { arg: sensorState }
-                });
-            });
-    </script>
-
-    <h1>Big Bot Billy Bass</h1>
+    <h1>Big Bot Billy Bass</h1> 
     
     <img id = "billyFish" src="{{ url_for('static', filename='billy_bass_closed.png') }}" class="/static/billy-image" class="billy-image">
 
@@ -79,6 +53,7 @@
 
         <script>
             async function Be_Happy() {
+                //triggers ESP32 over WiFi
                 fetch(`${ESP_IP}/play/Happy`)
                     .then(res => res.text())
                     .then(data => console.log(data));
@@ -86,20 +61,9 @@
                 let audio = document.getElementById("Be_Happy");
                 audio.play(); //for if the fish is not connected
             }
-
-            $("#Happy").click(function(event) { //the id of the element goes in the "#___"!
-                event.preventDefault();
-                var functionName = "cF_Be_Happy"
-                $.ajax({
-                    url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
-                    method: "POST",
-                    headers: { "Authorization": "Bearer " + accessToken },
-                    data: { arg: "HIGH" }
-
-                });
-            });
-
+            
             async function To_The_River() {
+                //triggers ESP32 over WiFi
                 fetch(`${ESP_IP}/play/River`)
                     .then(res => res.text())
                     .then(data => console.log(data));
@@ -107,21 +71,7 @@
                 let audio = document.getElementById("To_The_River");
 
                 audio.play(); //for if the fish is not connected
-            }
-
-            $("#River").click(function(event) { //the id of the element goes in the "#___"!
-                event.preventDefault();
-                var functionName = "cF_To_The_River"
-                $.ajax({
-                    url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
-                    method: "POST",
-                    headers: { "Authorization": "Bearer " + accessToken },
-                    data: { arg: "HIGH" }
-
-                });
-            });
-
-            
+            }           
         </script>
 
         <!-- got all of this from chaptgpt -->
@@ -181,15 +131,6 @@
                     .then(res => res.text())
                     .then(data => console.log(data));
 
-                //calls Particle.function(), and plays on the fish
-                var functionName = "cF_Billy_Audio"
-                $.ajax({
-                    url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
-                    method: "POST",
-                    headers: { "Authorization": "Bearer " + accessToken },
-                    data: { arg: "HIGH" }
-                });
-
                 let mouthOpen = false;
 
                 let talking = setInterval(function () { //shows Billy talking on the website
@@ -210,10 +151,11 @@
                 };
             }
 
+            //tells ESP32 when events happen from the server to  trigger certain events
             const eventSource = new EventSource("/stream");
-
+            
             eventSource.onmessage = function(event) {
-                if (event.data == "new_audio") {
+                if (event.data == "new_audio") { //such as when new audio is available
                     console.log("Billy says new audio is ready!");
 
                     //load audio for webpage
@@ -228,15 +170,15 @@
                         playBilly();
                     };
                 } //plays response file when sent a signal saying the audio has been updated
-                else if (event.data == "RIVER") {
+                else if (event.data == "RIVER") { //when asked to play Take me to the River
                     console.log("Playing Take Me to the River");
                     To_The_River();
                 }
-                else if (event.data == "HAPPY") {
+                else if (event.data == "HAPPY") { //Don't Worry, Be Happy
                     console.log("Playing Don't Worry, Be Happy");
                     Be_Happy();
                 }
-                else if (event.data == "STOP") {
+                else if (event.data == "STOP") { //or to stop everything
                     console.log("Stopping playback");
 
                     let response = document.getElementById("billyAudio");
@@ -266,29 +208,6 @@
         </script>
 
     </div>
-
-    <div class="secretContainer">
-        <button class="secretButton" onclick="Rick_Roll()" id="Rick_Roll">
-            <b>DO NOT PRESS!</b>
-        </button>
-    </div>
-
-    <script>
-        async function Rick_Roll() {
-            window.open("https://www.youtube.com/watch?v=cvh0nX08nRw", "_blank"); //sends user to different page in new tab
-        }
-
-        $("#Rick_Roll").click(function(event) { 
-            event.preventDefault();
-            var functionName = "cF_Rick_Roll"
-            $.ajax({
-                url: 'https://api.particle.io/v1/devices/'+ deviceID +'/' + functionName,
-                method: "POST",
-                headers: { "Authorization": "Bearer " + accessToken },
-                data: { arg: "ROLL" }
-            });
-        });
-    </script>
     
 </body>
 
