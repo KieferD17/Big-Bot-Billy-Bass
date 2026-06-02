@@ -105,8 +105,6 @@
                 //update the text on the webpage
                 document.getElementById("answer").innerText = data.answer;
 
-                // let audioPlayer = document.getElementById("audioPlayer");
-
                 //load audio for webpage
                 let audioSource = document.getElementById("audioSource");
                 audioSource.src = "/static/response.mp3?" + new Date().getTime();
@@ -126,7 +124,7 @@
 
                 audio.play(); //for if the fish is not connected
 
-                //plays the audio file from the ESP32
+                //tells ESP32 to play response file
                 fetch(`${ESP_IP}/play/response`)
                     .then(res => res.text())
                     .then(data => console.log(data));
@@ -172,11 +170,11 @@
                 } //plays response file when sent a signal saying the audio has been updated
                 else if (event.data == "RIVER") { //when asked to play Take me to the River
                     console.log("Playing Take Me to the River");
-                    To_The_River();
+                    To_The_River(); //calls function to play song on ESP32
                 }
                 else if (event.data == "HAPPY") { //Don't Worry, Be Happy
                     console.log("Playing Don't Worry, Be Happy");
-                    Be_Happy();
+                    Be_Happy(); //calls function to play song on ESP32
                 }
                 else if (event.data == "STOP") { //or to stop everything
                     console.log("Stopping playback");
@@ -193,6 +191,7 @@
                     happy.pause();
                     happy.currentTime = 0;
 
+                    //tells ESP32 to stop everything
                     fetch(`${ESP_IP}/play/stop`)
                     .then(res => res.text())
                     .then(data => console.log(data));
