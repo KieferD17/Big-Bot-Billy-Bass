@@ -31,10 +31,10 @@
 #define VS1053_DREQ 34
 #define VS1053_SDCS 25
 
-const char* ssid = "Argylian Booster ";
-const char* pswd = "44470036";
+const char* ssid = "WiFi_SSID";
+const char* pswd = "WiFi_PSWD";
 
-const char* host = "192.168.0.100";
+const char* host = "server_IP";
 const int port = 5000;
 
 //Define your target static IP settings
